@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>eb898d58-eae3-48bb-97b2-d13adf60fba4</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>optpython.py</StartupFile>
+    <StartupFile>opcalc.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>optpython</Name>
     <RootNamespace>optpython</RootNamespace>
+    <InterpreterId>MSBuild|envvc|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,22 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="american-optionw.py" />
+    <Compile Include="binomialQL.py" />
+    <Compile Include="opcalc.py" />
+    <Compile Include="optioncalc.py" />
     <Compile Include="optpython.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="envvc\">
+      <Id>envvc</Id>
+      <Version>3.7</Version>
+      <Description>envvc (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
