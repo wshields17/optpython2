@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog,QTableWidgetItem
-import openpyxl
+#import openpyxl
 
 from optioncalc import Ui_MainWindow  # importing our generated file
 import py_vollib.black_scholes_merton.implied_volatility as BSvol
@@ -14,14 +14,15 @@ import urllib
 import re
 import time
 import sys
-from iexfinance import Stock
+from iexfinance.stocks import Stock
 
 def fetchstockquotes(symbol):
-    base_url = 'https://api.iextrading.com/1.0/stock/'
-    quote1 = urllib.request.urlopen(base_url + symbol +'/price').read()
-    
-       
-    return quote1.decode("utf-8")
+   # base_url = 'https://api.iextrading.com/1.0/stock/'
+   # quote1 = urllib.request.urlopen(base_url + symbol +'/price').read()
+    qqq = Stock(symbol)
+    prc=qqq.get_price()   
+    #return quote1.decode("utf-8")
+    return prc
 
 def multtex(tex1,tex2):
     return str((float(tex1)* float(tex2)))
@@ -53,7 +54,7 @@ class mywindow(QtWidgets.QMainWindow):
       #self.ui.actionExit()=sys.exit(app.exec())
       #lvprice = si.get_live_price("qqq")
       lvprice = fetchstockquotes('qqq')
-      self.ui.StPrice.setText(lvprice)  
+      self.ui.StPrice.setText(str(lvprice))  
       self.ui.Strike.setText('160')
       self.ui.intrate.setText('.02')
       self.ui.optprice.setText(str(2))
@@ -71,8 +72,8 @@ class mywindow(QtWidgets.QMainWindow):
       options |= QFileDialog.DontUseNativeDialog
       fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","Excel Files (*.xlsx)", options=options)
      
-      wb = openpyxl.load_workbook(fileName)
-      sheet = wb.active
+      #wb = openpyxl.load_workbook(fileName)
+      #sheet = wb.active
       #for i in range (3,20):
       #   for j in range(2,5 ):   
       #       cellinfo = str(sheet.cell(row=i, column=j).value ) 
@@ -103,8 +104,8 @@ class mywindow(QtWidgets.QMainWindow):
       self.ui.Gamma1.setText(str(gamma))
       self.ui.Vega1.setText(str(vega)) 
       
-      stockprice = Stock('qqq').price()
-      self.ui.StPrice.setText(str(stockprice))
+     # stockprice = Stock('qqq').price()
+     # self.ui.StPrice.setText(str(stockprice))
 
    def btnClicked2(self):
       
